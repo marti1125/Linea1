@@ -1,0 +1,346 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+	<title>Linea 1</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">	
+  	<link rel="stylesheet" href="css/jquery.mobile.structure-1.2.0.min.css" />
+  	<link rel="stylesheet" href="css/metro.min.css" />
+  	<link rel="stylesheet" href="css/app.css" />
+	<script src="js/jquery-1.8.2.min.js"></script>
+	<script src="js/jquery.mobile-1.2.0.min.js"></script>
+	<script type="text/javascript" charset="utf-8" src="js/cordova-2.1.0.js"></script>
+	<script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAdzPLi1NW1ZZgfaclSgytjCEQiqTQ27rs&sensor=true">
+    </script>
+	<script src="js/app.js"></script>
+</head> 
+<body onload="initialize()"> 
+
+<div data-role="page" id="inicio" data-theme="a">
+
+	<div data-role="header" data-position="fixed">
+		<h1>Metro de Lima</h1>		
+	</div><!-- /header -->
+
+	<div data-role="content">	
+		<a data-icon="arrow-r" data-transition="slide" href="#ubicaciones" data-role="button">Ubicaciones</a>
+		<a data-icon="arrow-r" data-transition="slide" href="#horarios" data-role="button">Horarios</a>	
+	</div><!-- /content -->
+	
+</div><!-- /page -->
+
+<div data-role="page" id="ubicaciones" data-theme="a">
+
+	<div data-role="header" data-position="fixed">
+		<a data-rel="back" data-icon="back">Back</a>
+		<h1>Metro de Lima</h1>		
+	</div><!-- /header -->
+
+	<div data-role="content">
+		<div id="map_canvas"></div>		
+		<br/>
+        <p id="geolocation">Finding geolocation...</p>
+        <br/>
+        <div id="map_canvas2"></div>
+		<div data-role="navbar">
+			<ul>
+				<li><a href="#" onclick="mostrar()" id="cerca">¿Quieres saber que estación esta cerca?</a></li>		
+			</ul>
+		</div><!-- /navbar -->
+		
+	</div><!-- /content -->	
+
+</div><!-- /page -->
+
+<div data-role="page" id="horarios" data-theme="a">
+
+	<div data-role="header" data-position="fixed">
+		<a data-rel="back" data-icon="back">Back</a>
+		<h1>Metro de Lima</h1>		
+	</div><!-- /header -->
+
+	<div data-role="content">	
+		<a data-icon="arrow-r" data-transition="slide" href="#ves" data-role="button">Estación de Villa El Salvador</a>
+	</div><!-- /content -->	
+
+</div><!-- /page -->
+
+<div data-role="page" id="ves" data-theme="a">
+
+	<div data-role="header" data-position="fixed">
+		<a data-rel="back" data-icon="back">Back</a>
+		<h1>Metro de Lima</h1>		
+	</div><!-- /header -->
+
+	<div data-role="content">	
+		
+	</div><!-- /content -->	
+
+</div><!-- /page -->
+
+<script type="text/javascript">
+
+function initialize() {
+
+    var ves = new google.maps.LatLng(-12.207447116337589, -76.93337202072144);
+    var parqueind = new google.maps.LatLng(-12.196614608834702, -76.93970203399658);
+    var pumacahua = new google.maps.LatLng(-12.182289432291206, -76.94696545600891);
+    var villamaria = new google.maps.LatLng(-12.169326893124373, -76.95033431053162);
+    var mariaux = new google.maps.LatLng(-12.161198764772946, -76.9563102722168);
+    var sanjuan = new google.maps.LatLng(-12.156562998351102, -76.96566581726074);
+    var atocongo = new google.maps.LatLng(-12.150878305713205, -76.97953820228577);
+    var sanjorge = new google.maps.LatLng(-12.142466415965117, -76.99132919311523);
+    var ayacucho = new google.maps.LatLng(-12.134757031777635, -76.99700474739075);
+    var cabitos = new google.maps.LatLng(-12.127425043149751, -77.00047016143799);
+    var angamos = new google.maps.LatLng(-12.110389716292193, -77.00038433074951);
+    var sanborgasur = new google.maps.LatLng(-12.100969469053078, -77.00168251991272);
+    var lacultura = new google.maps.LatLng(-12.08673356567943, -77.0037853717804);
+    var nicolas = new google.maps.LatLng(-12.075014866051749, -77.01109170913696);
+    var gamarra = new google.maps.LatLng(-12.065761242254815, -77.01231479644775);
+    var miguelgrau = new google.maps.LatLng(-12.05423048622041, -77.0128083229065);
+
+    var msgves = 'Estación Villa El Salvador';
+    var msgparqueind = 'Estación Parque Industrial';
+    var msgpuma = 'Estación Pumacahua';
+    var msgvillam = 'Estación Villa Maria';
+    var msgmariaux = 'Estación Maria Auxiliadora';
+    var msgsanjuan = 'Estación San Juan';
+    var msgatocongo = 'Estación Atocongo';
+    var msgsanjorge = 'Estación San Jorge';
+    var msgayacucho = 'Estación Ayacucho';
+    var msgcabitos = 'Estación Cabitos';
+    var msgangamos = 'Estación Angamos';
+    var msgsanborgasur = 'Estación San Borga Sur';
+    var msglacultura = 'Estación La Cultura';
+    var msgnicolas = 'Estación Nicolas Arriola';
+    var msggamarra = 'Estación Gamarra';
+    var msgmiguelgrau = 'Estación Miguel Grau';
+
+    var mapOptions = {
+
+        center: new google.maps.LatLng(-12.11792427550478, -76.99562072753906),
+        zoom: 11,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+
+    var map = new google.maps.Map(document.getElementById("map_canvas"),
+    mapOptions);
+
+    var marker = new google.maps.Marker({
+        position: ves,
+        map: map
+    });
+
+    var marker2 = new google.maps.Marker({
+        position: parqueind,
+        map: map
+    });
+
+    var marker3 = new google.maps.Marker({
+        position: pumacahua,
+        map: map
+    });
+
+    var marker4 = new google.maps.Marker({
+        position: villamaria,
+        map: map
+    });
+
+    var marker5 = new google.maps.Marker({
+        position: mariaux,
+        map: map
+    });
+
+    var marker6 = new google.maps.Marker({
+        position: sanjuan,
+        map: map
+    });
+
+    var marker7 = new google.maps.Marker({
+        position: atocongo,
+        map: map
+    });
+
+    var marker8 = new google.maps.Marker({
+        position: sanjorge,
+        map: map
+    });
+
+    var marker9 = new google.maps.Marker({
+        position: ayacucho,
+        map: map
+    });
+
+    var marker10 = new google.maps.Marker({
+        position: cabitos,
+        map: map
+    });
+
+    var marker11 = new google.maps.Marker({
+        position: angamos,
+        map: map
+    });
+
+    var marker12 = new google.maps.Marker({
+        position: sanborgasur,
+        map: map
+    });
+
+    var marker13 = new google.maps.Marker({
+        position: lacultura,
+        map: map
+    });
+
+    var marker14 = new google.maps.Marker({
+        position: nicolas,
+        map: map
+    });
+
+    var marker15 = new google.maps.Marker({
+        position: gamarra,
+        map: map
+    });
+
+    var marker16 = new google.maps.Marker({
+        position: miguelgrau,
+        map: map
+    });
+
+    // mensaje
+
+    var infowindow = new google.maps.InfoWindow({
+        content: msgves
+    });
+
+    var infowindow2 = new google.maps.InfoWindow({
+        content: msgparqueind
+    });
+
+    var infowindow3 = new google.maps.InfoWindow({
+        content: msgpuma
+    });
+
+    var infowindow4 = new google.maps.InfoWindow({
+        content: msgvillam
+    });
+
+    var infowindow5 = new google.maps.InfoWindow({
+        content: msgmariaux
+    });
+
+    var infowindow6 = new google.maps.InfoWindow({
+        content: msgsanjuan
+    });
+
+    var infowindow7 = new google.maps.InfoWindow({
+        content: msgatocongo
+    });
+
+    var infowindow8 = new google.maps.InfoWindow({
+        content: msgsanjorge
+    });
+
+    var infowindow9 = new google.maps.InfoWindow({
+        content: msgayacucho
+    });
+
+    var infowindow10 = new google.maps.InfoWindow({
+        content: msgcabitos
+    });
+
+    var infowindow11 = new google.maps.InfoWindow({
+        content: msgangamos
+    });
+
+    var infowindow12 = new google.maps.InfoWindow({
+        content: msgsanborgasur
+    });
+
+    var infowindow13 = new google.maps.InfoWindow({
+        content: msglacultura
+    });
+
+    var infowindow14 = new google.maps.InfoWindow({
+        content: msgnicolas
+    });
+
+    var infowindow15 = new google.maps.InfoWindow({
+        content: msggamarra
+    });
+
+    var infowindow16 = new google.maps.InfoWindow({
+        content: msgmiguelgrau
+    });
+
+    google.maps.event.addListener(marker, 'click', function () {
+        infowindow.open(map, marker);
+    });
+
+    google.maps.event.addListener(marker2, 'click', function () {
+        infowindow2.open(map, marker2);
+    });
+
+    google.maps.event.addListener(marker3, 'click', function () {
+        infowindow3.open(map, marker3);
+    });
+
+    google.maps.event.addListener(marker4, 'click', function () {
+        infowindow4.open(map, marker4);
+    });
+
+    google.maps.event.addListener(marker5, 'click', function () {
+        infowindow5.open(map, marker5);
+    });
+
+    google.maps.event.addListener(marker6, 'click', function () {
+        infowindow6.open(map, marker6);
+    });
+
+    google.maps.event.addListener(marker7, 'click', function () {
+        infowindow7.open(map, marker7);
+    });
+
+    google.maps.event.addListener(marker8, 'click', function () {
+        infowindow8.open(map, marker8);
+    });
+
+    google.maps.event.addListener(marker9, 'click', function () {
+        infowindow9.open(map, marker9);
+    });
+
+    google.maps.event.addListener(marker10, 'click', function () {
+        infowindow10.open(map, marker10);
+    });
+
+    google.maps.event.addListener(marker11, 'click', function () {
+        infowindow11.open(map, marker11);
+    });
+
+    google.maps.event.addListener(marker12, 'click', function () {
+        infowindow12.open(map, marker12);
+    });
+
+    google.maps.event.addListener(marker13, 'click', function () {
+        infowindow13.open(map, marker13);
+    });
+
+    google.maps.event.addListener(marker14, 'click', function () {
+        infowindow14.open(map, marker14);
+    });
+
+    google.maps.event.addListener(marker15, 'click', function () {
+        infowindow15.open(map, marker15);
+    });
+
+    google.maps.event.addListener(marker16, 'click', function () {
+        infowindow16.open(map, marker16);
+    });
+
+}
+
+</script>
+
+</body>
+</html>
+
