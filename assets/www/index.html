@@ -13,6 +13,7 @@
 	<script type="text/javascript"
       src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAdzPLi1NW1ZZgfaclSgytjCEQiqTQ27rs&sensor=true">
     </script>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true&libraries=places"></script>
 	<script src="js/app.js"></script>
 </head> 
 <body onload="initialize()"> 
@@ -40,12 +41,12 @@
 	<div data-role="content">
 		<div id="map_canvas"></div>		
 		<br/>
-        <p id="geolocation">Finding geolocation...</p>
-        <br/>
-        <div id="map_canvas2"></div>
+        <!--p id="geolocation">Finding geolocation...</p-->
+        <!--br/-->
+        <!--div id="map_canvas2"></div-->
 		<div data-role="navbar">
 			<ul>
-				<li><a href="#" onclick="mostrar()" id="cerca">¿Quieres saber que estación esta cerca?</a></li>		
+				<li><a href="#miubicacion" onclick="mostrar()" id="cerca">¿Quieres saber que estación esta cerca de ti?</a></li>		
 			</ul>
 		</div><!-- /navbar -->
 		
@@ -53,16 +54,29 @@
 
 </div><!-- /page -->
 
+<div data-role="page" id="miubicacion" data-theme="a">
+
+    <div data-role="header" data-position="fixed">
+        <a data-rel="back" data-icon="back">Back</a>
+        <h1>Estación</h1>       
+    </div><!-- /header -->
+
+    <div data-role="content">
+        <div id="miestacion">Cargando...</div>        
+    </div><!-- /content --> 
+
+</div><!-- /page -->
+
 <div data-role="page" id="horarios" data-theme="a">
 
-	<div data-role="header" data-position="fixed">
-		<a data-rel="back" data-icon="back">Back</a>
-		<h1>Metro de Lima</h1>		
-	</div><!-- /header -->
+    <div data-role="header" data-position="fixed">
+        <a data-rel="back" data-icon="back">Back</a>
+        <h1>Metro de Lima</h1>      
+    </div><!-- /header -->
 
-	<div data-role="content">	
-		<a data-icon="arrow-r" data-transition="slide" href="#ves" data-role="button">Estación de Villa El Salvador</a>
-	</div><!-- /content -->	
+    <div data-role="content">   
+        <a data-icon="arrow-r" data-transition="slide" href="#ves" data-role="button">Estación de Villa El Salvador</a>
+    </div><!-- /content --> 
 
 </div><!-- /page -->
 
@@ -118,7 +132,6 @@ function initialize() {
     var msgmiguelgrau = 'Estación Miguel Grau';
 
     var mapOptions = {
-
         center: new google.maps.LatLng(-12.11792427550478, -76.99562072753906),
         zoom: 11,
         mapTypeId: google.maps.MapTypeId.ROADMAP

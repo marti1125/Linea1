@@ -1,12 +1,12 @@
 body {
 	font-family: sans-serif;
 }
-#map_canvas{
+#map_canvas {
 	width: 290px;
 	height: 340px;
 }
 
-#map_canvas2{
-	width: 290px;
-	height: 340px;
+#miestacion {
+	width: 300px;
+	height: 350px;
 }
