@@ -10,3 +10,14 @@ body {
 	width: 300px;
 	height: 350px;
 }
+
+#loader {
+	top: 50%;
+	left: 50%;
+}
+
+.wrapper {
+	position:absolute;
+	top:50%;
+	left:50%;
+}

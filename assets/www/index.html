@@ -14,6 +14,7 @@
       src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAdzPLi1NW1ZZgfaclSgytjCEQiqTQ27rs&sensor=true">
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true&libraries=places"></script>
+    <script src="js/heartcode-canvasloader.js"></script>
 	<script src="js/app.js"></script>
 </head> 
 <body onload="initialize()"> 
@@ -46,7 +47,7 @@
         <!--div id="map_canvas2"></div-->
 		<div data-role="navbar">
 			<ul>
-				<li><a href="#miubicacion" onclick="mostrar()" id="cerca">¿Quieres saber que estación esta cerca de ti?</a></li>		
+				<li><a href="#miubicacion" onclick="mostrar()" id="cerca">Estación Cercana</a></li>	
 			</ul>
 		</div><!-- /navbar -->
 		
@@ -62,7 +63,7 @@
     </div><!-- /header -->
 
     <div data-role="content">
-        <div id="miestacion">Cargando...</div>        
+        <div id="miestacion"><div id="canvasloader-container" class="wrapper"></div></div>        
     </div><!-- /content --> 
 
 </div><!-- /page -->
@@ -92,6 +93,17 @@
 	</div><!-- /content -->	
 
 </div><!-- /page -->
+
+<script type="text/javascript">
+        var cl = new CanvasLoader('canvasloader-container');
+        cl.show(); // Hidden by default
+        
+        // This bit is only for positioning - not necessary
+          var loaderObj = document.getElementById("canvasLoader");
+        loaderObj.style.position = "absolute";
+        loaderObj.style["top"] = cl.getDiameter() * -0.5 + "px";
+        loaderObj.style["left"] = cl.getDiameter() * -0.5 + "px";
+</script>
 
 <script type="text/javascript">
 
