@@ -1,1 +1,15 @@
 *.md~
+
+# Eclipse project #
+
+/bin
+/gen
+/libs
+/res
+/src
+*.xml
+*.properties
+*.txt
+.settings
+.classpath
+.project
